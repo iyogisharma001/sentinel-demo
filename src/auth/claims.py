@@ -3,4 +3,7 @@ class InvalidToken(Exception):
 
 
 def get_subject(payload):
-    return payload["sub"].strip()
+    subject = payload.get("sub")
+    if not subject or not subject.strip():
+        raise InvalidToken("subject is required")
+    return subject.strip()
